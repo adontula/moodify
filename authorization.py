@@ -88,6 +88,10 @@ def callback():
     return redirect("https://adontula.github.io")
     # return render_template("index.html",sorted_array=display_arr)
 
+@app.route("/get_playback")
+def get_playback(emotion):
+    return "https://open.spotify.com/embed?uri=spotify:user:erebore:playlist:788MOXyTfcUb1tdw4oC7KJ"
+
 
 if __name__ == "__main__":
     app.run(debug=True,port=PORT)
