@@ -3,6 +3,8 @@ from flask import Flask, request, redirect, g, render_template
 import requests
 import base64
 import urllib
+from data_scrape import readTracks
+from azure_emotion import grabPlaylist
 
 # Authentication Steps, paramaters, and responses are defined at https://developer.spotify.com/web-api/authorization-guide/
 # Visit this url to see all the steps, parameters, and expected response.
@@ -91,6 +93,10 @@ def callback():
 
     # Combine profile and playlist data to display
     display_arr = [profile_data] + playlist_data["items"]
+
+    readTracks(refresh())
+    grabPlaylist(refresh())
+
     return redirect("https://adontula.github.io")
     # return render_template("index.html",sorted_array=display_arr)
 

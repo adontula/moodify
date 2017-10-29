@@ -1,0 +1,19 @@
+from sklearn.ensemble import RandomForestClassifier
+import pandas as pd
+import numpy as np
+import json
+
+np.random.seed(0)
+
+reactions = open('reactions.data', 'r').read()
+reacts = []
+for reaction in reactions:
+    try:
+        reacts.append(int(reaction.replace(' ', '').replace('\n', '')))
+    except:
+        pass
+       #  print(reaction)
+
+x = pd.read_json('songs.data')
+x['result'] = reacts
+print(x.describe())
