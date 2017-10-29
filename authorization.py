@@ -42,6 +42,9 @@ auth_query_parameters = {
     "client_id": CLIENT_ID
 }
 
+auth_code = ""
+refresh = ""
+
 @app.route("/")
 def index():
     # Auth Step 1: Authorization
@@ -70,6 +73,9 @@ def callback():
     token_type = response_data["token_type"]
     expires_in = response_data["expires_in"]
 
+    refresh = refresh_token
+    auth_code = access_token
+
     # Auth Step 6: Use the access token to access Spotify API
     authorization_header = {"Authorization":"Bearer {}".format(access_token)}
 
@@ -88,10 +94,16 @@ def callback():
     return redirect("https://adontula.github.io")
     # return render_template("index.html",sorted_array=display_arr)
 
-@app.route("/get_playlist")
-def get_playback(emotion):
-    return "https://open.spotify.com/embed?uri=spotify:user:erebore:playlist:788MOXyTfcUb1tdw4oC7KJ"
-
+def refresh():
+    base64encoded = base64.b64encode("{}:{}".format(CLIENT_ID, CLIENT_SECRET))
+    headers = {"Authorization": "Basic {}".format(base64encoded)}
+    code_payload = {
+        "grant_type": "refresh_token",
+        "refresh_token": refresh
+    }
+    post_request = requests.post(SPOTIFY_TOKEN_URL, data=code_payload, headers=headers)
+    data = json.loads(post_request.text)
+    return data["access_token"]
 
 if __name__ == "__main__":
     app.run(debug=True,port=PORT)
