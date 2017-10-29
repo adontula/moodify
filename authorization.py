@@ -23,8 +23,8 @@ SPOTIFY_API_URL = "{}/{}".format(SPOTIFY_API_BASE_URL, API_VERSION)
 
 
 # Server-side Parameters
-CLIENT_SIDE_URL = "http://127.0.0.1"
-PORT = 8080
+CLIENT_SIDE_URL = "https://adontula.github.io"
+PORT = ""
 REDIRECT_URI = "{}:{}/callback/q".format(CLIENT_SIDE_URL, PORT)
 SCOPE = "user-read-currently-playing user-library-read"
 STATE = ""
@@ -41,7 +41,7 @@ auth_query_parameters = {
     "client_id": CLIENT_ID
 }
 
-@app.route("/index")
+@app.route("/")
 def index():
     # Auth Step 1: Authorization
     url_args = "&".join(["{}={}".format(key,urllib.quote(val)) for key,val in auth_query_parameters.iteritems()])
