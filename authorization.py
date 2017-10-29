@@ -23,9 +23,10 @@ SPOTIFY_API_URL = "{}/{}".format(SPOTIFY_API_BASE_URL, API_VERSION)
 
 
 # Server-side Parameters
-CLIENT_SIDE_URL = "https://adontula.github.io"
+CLIENT_SIDE_URL = "https://0.0.0.0:5000/"
 PORT = ""
-REDIRECT_URI = "{}:{}/callback/q".format(CLIENT_SIDE_URL, PORT)
+# REDIRECT_URI = "{}:{}/callback/q".format(CLIENT_SIDE_URL, PORT)
+REDIRECT_URI = "https://adontula.github.io/callback"
 SCOPE = "user-read-currently-playing user-library-read"
 STATE = ""
 SHOW_DIALOG_bool = True
