@@ -26,7 +26,7 @@ SPOTIFY_API_URL = "{}/{}".format(SPOTIFY_API_BASE_URL, API_VERSION)
 CLIENT_SIDE_URL = "https://0.0.0.0:5000/"
 PORT = ""
 # REDIRECT_URI = "{}:{}/callback/q".format(CLIENT_SIDE_URL, PORT)
-REDIRECT_URI = "https://adontula.github.io/callback"
+REDIRECT_URI = "http://0.0.0.0:5000/callback"
 SCOPE = "user-read-currently-playing user-library-read"
 STATE = ""
 SHOW_DIALOG_bool = True
@@ -50,7 +50,7 @@ def index():
     return redirect(auth_url)
 
 
-@app.route("/callback/q")
+@app.route("/callback")
 def callback():
     # Auth Step 4: Requests refresh and access tokens
     auth_token = request.args['code']
@@ -85,7 +85,8 @@ def callback():
 
     # Combine profile and playlist data to display
     display_arr = [profile_data] + playlist_data["items"]
-    return render_template("index.html",sorted_array=display_arr)
+    return redirect("https://adontula.github.io")
+    # return render_template("index.html",sorted_array=display_arr)
 
 
 if __name__ == "__main__":
